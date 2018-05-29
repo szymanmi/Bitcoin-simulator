@@ -9,7 +9,13 @@ public class MainWindow extends JFrame {
 		setSize(300, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		String login = getLogin();
+		String login;
+		do {
+			login = getLogin();
+		}
+		while (!login.equals("Janek"));
+
+
 		JPanel pane = new JPanel();
 		JButton buyJanek = new JButton("Kup Janka");
 		pane.add(buyJanek);
@@ -24,6 +30,6 @@ public class MainWindow extends JFrame {
 	}
 
 	private String getLogin() {
-		return JOptionPane.showInputDialog(null, "Username:");
+		return JOptionPane.showInputDialog(null, "Username (Janek):");
 	}
 }
