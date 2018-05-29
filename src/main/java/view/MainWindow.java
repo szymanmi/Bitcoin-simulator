@@ -2,20 +2,22 @@ package view;
 
 import javax.swing.*;
 
+import static repository.Bitcoin.getBitcoinValue;
+
 public class MainWindow extends JFrame {
 
 	public MainWindow() {
 		super("janekcoin na zaliczenie");
-		setSize(300, 300);
+		setSize(350, 350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+
 		String login;
-		do {
-			login = getLogin();
-		}
+		do {login = getLogin();}
 		while (!login.equals("Janek"));
 
-
+		String price = String.valueOf(getBitcoinValue());
+		JLabel pricelbl = new JLabel("Aktualna cena janka to: " + price);
 		JPanel pane = new JPanel();
 		JButton buyJanek = new JButton("Kup Janka");
 		pane.add(buyJanek);
@@ -23,6 +25,7 @@ public class MainWindow extends JFrame {
 		pane.add(sellJanek);
 		ImageIcon ii = new ImageIcon("src/main/resources/janek.png");
 		JLabel lbl = new JLabel(ii);
+		pane.add(pricelbl);
 		pane.add(lbl);
 		add(pane);
 
