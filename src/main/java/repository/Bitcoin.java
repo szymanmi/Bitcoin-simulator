@@ -10,7 +10,6 @@ public class Bitcoin {
 		 */
 		Random rand = new Random();
 
-		double value = rand.nextDouble();
-		return value;
+		return rand.nextDouble();
 	}
 }

@@ -1,5 +1,7 @@
 package view;
 
+import repository.Login;
+
 import javax.swing.*;
 
 import static repository.Bitcoin.getBitcoinValue;
@@ -12,9 +14,15 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
-		String login;
-		do {login = getLogin();}
-		while (!login.equals("Janek"));
+		String userName, password;
+		do {
+			userName = getLogin();
+			password = getPassword();
+		}
+		while (!Login.isLoginDataCorrect(userName, password));
+
+
+
 
 		String price = String.valueOf(getBitcoinValue());
 		JLabel pricelbl = new JLabel("Aktualna cena janka to: " + price);
@@ -33,6 +41,9 @@ public class MainWindow extends JFrame {
 	}
 
 	private String getLogin() {
-		return JOptionPane.showInputDialog(null, "Username (Janek):");
+		return JOptionPane.showInputDialog(null, "Username (janek):");
+	}
+	private String getPassword() {
+		return JOptionPane.showInputDialog(null, "Password (janek):");
 	}
 }
