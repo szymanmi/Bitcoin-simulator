@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import repository.Login;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import javax.swing.*;
 import static repository.Bitcoin.getBitcoinValue;
 
 public class MainWindow extends JFrame {
+	private volatile boolean userCurrentlyLoggedIn = false;
 	public MainWindow() {
 		super("janekcoin na zaliczenie");
 		setSize(350, 350);
@@ -16,7 +18,8 @@ public class MainWindow extends JFrame {
 
 
 		welcomeWindow();
-
+		//removeAll();
+		System.out.println("elo");
 		String price = String.valueOf(getBitcoinValue());
 		JLabel pricelbl = new JLabel("Aktualna cena janka to: " + price);
 		JPanel pane = new JPanel();
@@ -30,7 +33,7 @@ public class MainWindow extends JFrame {
 		pane.add(pricelbl);
 		pane.add(lbl);
 		add(pane);
-		remove(pane);
+
 
 		setVisible(true);
 	}
@@ -48,6 +51,15 @@ public class MainWindow extends JFrame {
 		registerButton.addActionListener(event -> register());
 		add(panel);
 		setVisible(true);
+
+		//wait untill user is not logged
+		while(!this.userCurrentlyLoggedIn){
+			try {
+				Thread.sleep(200);
+			} catch(InterruptedException ignored) { }
+		}
+		remove(panel);
+		setVisible(true);
 	}
 
 	private String getLogin() {
@@ -59,12 +71,19 @@ public class MainWindow extends JFrame {
 	}
 
 	private String register() {
+		/*
+		TODO
+		no ogarnąć tę funkcję żeby coś konkretnego robiła
+		 */
 		return JOptionPane.showInputDialog(null, "rejestracja");
 	}
 
 	private void login() {
-		getLogin();
-		getPassword();
+		String login = getLogin();
+		String password = getPassword();
+		if(Login.isLoginDataCorrect(login, password))
+			this.userCurrentlyLoggedIn = true;
+
 	}
 
 
