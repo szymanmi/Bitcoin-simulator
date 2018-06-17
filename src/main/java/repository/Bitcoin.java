@@ -8,8 +8,9 @@ public class Bitcoin {
 		TODO:
 			value pobierana z internetu
 		 */
-		Random rand = new Random();
+		//Random rand = new Random();
 
-		return rand.nextDouble();
+		//return rand.nextDouble();
+		return 0.5;
 	}
 }

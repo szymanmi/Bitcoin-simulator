@@ -6,6 +6,6 @@ public class Login {
 		TODO
 		-sprawdzanie powinno wykorzystywać informacje z bazy danych
 		 */
-		return true;
+		return userName.length() > 3;
 	}
 }

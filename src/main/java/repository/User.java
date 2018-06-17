@@ -12,6 +12,14 @@ public class User {
 
 	}
 
+	public void setDollars(double dollars) {
+		this.dollars = dollars;
+	}
+
+	public void setBitcoins(double bitcoins) {
+		this.bitcoins = bitcoins;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -23,6 +31,15 @@ public class User {
 	public double getBitcoins() {
 		return bitcoins;
 	}
+
+	public static double getDollarsFromDatabase(){
+		return 150;
+	}
+
+	public static double getBitcoinsFromDatabase(){
+		return 0.3;
+	}
+
 
 	/*
 	TODO:
