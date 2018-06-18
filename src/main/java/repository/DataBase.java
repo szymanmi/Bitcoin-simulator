@@ -6,11 +6,12 @@ interface DataBase {
     void getUserData(int idUser);
     void checkUser(String username, String password);
     void createUser(String username, String password);
-    void getUserBitcoind(String userId);
+    void getUserBitcoins(String userId);
     void getUserDollars(String userId);
-    void addUserDolars(String userId, float amount);
-    void userBuyBitcoins(String userId, float amountBitcoins, float amountDolars);
-    void userSelBitcoins(String userId, float amountBitcoins, float amountDolars);
+    void getUserBitcoinsAndDolars(String userId);
+    void addUserDolars(String userId, double amount);
+    void userBuyBitcoins(String userId, double amountBitcoins, double amountDolars);
+    void userSellBitcoins(String userId, double amountBitcoins, double amountDolars);
 
 }
 
@@ -66,5 +67,41 @@ public class DataBaseJDBC implements DataBase {
         this.closeConnection();
 
         //return Array();
+    }
+
+    public void checkUser(String username, String password){
+        //int >=0 sukces; < 0 - porażka
+        return userId;
+    }
+    public void createUser(String username, String password){
+        //int >=0 sukces; < 0 - porażka
+        return userId;
+    }
+    public void getUserBitcoins(String userId){
+        //double
+        return bitcoins;
+    }
+    public void getUserDollars(String userId){
+        //double
+        return dolars;
+    }
+    public void getUserBitcoinsAndDolars(String userId){
+        //tablicy double[2]
+        double[] ret = {bitcoins, dolars};
+        return ret;
+    }
+    public void addUserDolars(String userId, double amount){
+        //double
+        return dolars;
+    }
+    public void userBuyBitcoins(String userId, double amountBitcoins, double amountDolars){
+        //tablicy double[2]
+        double[] ret = {bitcoins, dolars};
+        return ret;
+    }
+    public void userSellBitcoins(String userId, double amountBitcoins, double amountDolars){
+        //tablicy double[2]
+        double[] ret = {bitcoins, dolars};
+        return ret;
     }
 }
