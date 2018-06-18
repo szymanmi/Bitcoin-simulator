@@ -6,12 +6,13 @@ interface DataBase {
     void getUserData(int idUser);
     void checkUser(String username, String password);
     void createUser(String username, String password);
-    void getUserBitcoins(String userId);
-    void getUserDollars(String userId);
-    void getUserBitcoinsAndDolars(String userId);
-    void addUserDolars(String userId, double amount);
-    void userBuyBitcoins(String userId, double amountBitcoins, double amountDolars);
-    void userSellBitcoins(String userId, double amountBitcoins, double amountDolars);
+    void getUserBitcoins(int userId);
+    void getUserDollars(int userId);
+    void getUserBitcoinsAndDolars(int userId);
+    void addUserDolars(int userId, double amount);
+    void userBuyBitcoins(int userId, double amountBitcoins, double amountDolars);
+    void userSellBitcoins(int userId, double amountBitcoins, double amountDolars);
+    //void getUserHistorry(St)
 
 }
 
@@ -70,6 +71,9 @@ public class DataBaseJDBC implements DataBase {
     }
 
     public void checkUser(String username, String password){
+        /**
+         * @return
+         */
         //int >=0 sukces; < 0 - porażka
         return userId;
     }
@@ -77,29 +81,29 @@ public class DataBaseJDBC implements DataBase {
         //int >=0 sukces; < 0 - porażka
         return userId;
     }
-    public void getUserBitcoins(String userId){
+    public void getUserBitcoins(int userId){
         //double
         return bitcoins;
     }
-    public void getUserDollars(String userId){
+    public void getUserDollars(int userId){
         //double
         return dolars;
     }
-    public void getUserBitcoinsAndDolars(String userId){
+    public void getUserBitcoinsAndDolars(int userId){
         //tablicy double[2]
         double[] ret = {bitcoins, dolars};
         return ret;
     }
-    public void addUserDolars(String userId, double amount){
+    public void addUserDolars(int userId, double amount){
         //double
         return dolars;
     }
-    public void userBuyBitcoins(String userId, double amountBitcoins, double amountDolars){
+    public void userBuyBitcoins(int userId, double amountBitcoins, double amountDolars){
         //tablicy double[2]
         double[] ret = {bitcoins, dolars};
         return ret;
     }
-    public void userSellBitcoins(String userId, double amountBitcoins, double amountDolars){
+    public void userSellBitcoins(int userId, double amountBitcoins, double amountDolars){
         //tablicy double[2]
         double[] ret = {bitcoins, dolars};
         return ret;
