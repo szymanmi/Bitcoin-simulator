@@ -29,7 +29,7 @@ class WelcomePanel extends JPanel {
 		add(buttonsPanel, BorderLayout.NORTH);
 
 
-		JLabel BTCValueLabel = new JLabel("  Aktualna wartość BTC w PLN: " + String.valueOf(getBitcoinValue()));
+		JLabel BTCValueLabel = new JLabel("      Aktualna wartość BTC w PLN: " + String.valueOf(getBitcoinValue()));
 		BTCValueLabel.setFont(new Font("Sans Serif", 0, 16));
 		add(BTCValueLabel, BorderLayout.CENTER);
 		exitButton.addActionListener(event -> exit());
@@ -60,8 +60,7 @@ class WelcomePanel extends JPanel {
 			if (Login.isLoginDataCorrect(login.getText(), password.getText())) {
 				this.userCurrentlyLoggedIn = true;
 				this.loggedUser = new User(login.getText(), User.getDollarsFromDatabase(), User.getBitcoinsFromDatabase());
-			}
-			else{
+			} else {
 				System.out.println("wprowadziels bledne dane");
 			}
 
@@ -79,7 +78,7 @@ class WelcomePanel extends JPanel {
 		return JOptionPane.showInputDialog(null, "rejestracja");
 	}
 
-	private void exit(){
+	private void exit() {
 		System.exit(0);
 	}
 }

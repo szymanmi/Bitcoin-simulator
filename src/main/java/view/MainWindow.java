@@ -18,7 +18,7 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 
 		welcomeWindow();
-		setSize(500, 350);
+		setSize(450, 350);
 		mainWindow(loggedUser);
 
 	}
