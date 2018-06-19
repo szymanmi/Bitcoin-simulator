@@ -36,11 +36,10 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 	}
 
-	private static void setLookAndFeel(){
+	private static void setLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		}
-		catch (Exception ignored){
+		} catch (Exception ignored) {
 
 		}
 	}

@@ -32,11 +32,11 @@ public class User {
 		return bitcoins;
 	}
 
-	public static double getDollarsFromDatabase(){
+	public static double getDollarsFromDatabase() {
 		return 50000;
 	}
 
-	public static double getBitcoinsFromDatabase(){
+	public static double getBitcoinsFromDatabase() {
 		return 0.3;
 	}
 
