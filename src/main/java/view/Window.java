@@ -1,17 +1,19 @@
 package view;
 
+import repository.Bitcoin;
 import repository.Login;
 import repository.User;
 
 import javax.swing.*;
-
+import java.io.IOException;
 
 import static repository.Bitcoin.getBitcoinValue;
+
 
 public class Window extends JFrame {
 	private volatile boolean userCurrentlyLoggedIn = false;
 	private User loggedUser;
-	public Window() {
+	public Window() throws IOException {
 		super("janekcoin na zaliczenie");
 		setSize(350, 350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +49,7 @@ public class Window extends JFrame {
 		setVisible(true);
 	}
 
-	private void mainWindow(){
+	private void mainWindow() throws IOException {
 		JPanel pane = new JPanel();
 		JLabel userInfolbl = new JLabel("Username: " + loggedUser.getUserName()
 				+ " Dolary: " + String.valueOf(loggedUser.getDollars())
@@ -58,10 +60,22 @@ public class Window extends JFrame {
 		JLabel pricelbl = new JLabel("Aktualna cena janka to: " + price);
 		pane.add(pricelbl);
 		JButton buyButton = new JButton("Kup Janka");
-		buyButton.addActionListener(event -> buy(userInfolbl));
+		buyButton.addActionListener(event -> {
+			try {
+				buy(userInfolbl);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 		pane.add(buyButton);
 		JButton sellButton = new JButton("Sprzedaj Janka");
-		sellButton.addActionListener(event -> sell(userInfolbl));
+		sellButton.addActionListener(event -> {
+			try {
+				sell(userInfolbl);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 		pane.add(sellButton);
 		ImageIcon ii = new ImageIcon("src/main/resources/janek.png");
 		JLabel lbl = new JLabel(ii);
@@ -78,7 +92,7 @@ public class Window extends JFrame {
 				+ " Bitcoiny: " + String.valueOf(loggedUser.getBitcoins()));
 	}
 
-	private void buy(JLabel info){
+	private void buy(JLabel info) throws IOException {
 		String amountToBuy = JOptionPane.showInputDialog(null, "Ile chcesz kupić?");
 		double value = Double.parseDouble(amountToBuy);
 		if (value * getBitcoinValue() <= loggedUser.getDollars()){
@@ -89,7 +103,7 @@ public class Window extends JFrame {
 
 	}
 
-	private void sell(JLabel info){
+	private void sell(JLabel info) throws IOException {
 		String amountToSell = JOptionPane.showInputDialog(null, "Ile chcesz sprzedać?");
 		double value = Double.parseDouble(amountToSell);
 		if (value <= loggedUser.getBitcoins()){
