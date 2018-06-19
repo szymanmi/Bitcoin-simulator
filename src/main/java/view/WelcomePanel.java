@@ -5,12 +5,15 @@ import repository.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+
+import static repository.Bitcoin.getBitcoinValue;
 
 class WelcomePanel extends JPanel {
 	private User loggedUser;
 	private volatile boolean userCurrentlyLoggedIn = false;
 
-	WelcomePanel() {
+	WelcomePanel() throws IOException {
 		setLayout(new BorderLayout());
 
 		ImageIcon loginIcon = new ImageIcon("src/main/resources/loginImage.gif");
@@ -26,6 +29,8 @@ class WelcomePanel extends JPanel {
 		add(buttonsPanel, BorderLayout.NORTH);
 
 
+		JLabel BTCValueLabel = new JLabel("Aktualna wartość BTC: " + String.valueOf(getBitcoinValue()));
+		add(BTCValueLabel, BorderLayout.CENTER);
 		loginButton.addActionListener(event -> login());
 		registerButton.addActionListener(event -> register());
 	}

@@ -21,7 +21,7 @@ public class MainWindow extends JFrame {
 
 	}
 
-	private void welcomeWindow() {
+	private void welcomeWindow() throws IOException {
 		WelcomePanel panel = new WelcomePanel();
 		add(panel);
 		setVisible(true);
