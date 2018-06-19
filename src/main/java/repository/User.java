@@ -33,7 +33,7 @@ public class User {
 	}
 
 	public static double getDollarsFromDatabase(){
-		return 150;
+		return 50000;
 	}
 
 	public static double getBitcoinsFromDatabase(){
