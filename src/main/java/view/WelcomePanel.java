@@ -31,6 +31,7 @@ class WelcomePanel extends JPanel {
 
 		JLabel BTCValueLabel = new JLabel("Aktualna wartość BTC: " + String.valueOf(getBitcoinValue()));
 		add(BTCValueLabel, BorderLayout.CENTER);
+		exitButton.addActionListener(event -> exit());
 		loginButton.addActionListener(event -> login());
 		registerButton.addActionListener(event -> register());
 	}
@@ -75,5 +76,9 @@ class WelcomePanel extends JPanel {
 		no ogarnąć tę funkcję żeby coś konkretnego robiła
 		 */
 		return JOptionPane.showInputDialog(null, "rejestracja");
+	}
+
+	private void exit(){
+		System.exit(0);
 	}
 }
