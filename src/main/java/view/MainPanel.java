@@ -7,12 +7,14 @@ import java.io.IOException;
 
 import static repository.Bitcoin.getBitcoinValue;
 
-public class MainPanel extends JPanel {
+class MainPanel extends JPanel {
 	private User loggedUser;
 	private JLabel userInfoLabel;
 
-	public MainPanel(User loggedUser) throws IOException {
+	MainPanel(User loggedUser) throws IOException {
 		this.loggedUser = loggedUser;
+		//setLayout(new GridLayout());
+
 		userInfoLabel = new JLabel("Username: " + loggedUser.getUserName()
 				+ " Dolary: " + String.valueOf(loggedUser.getDollars())
 				+ " Bitcoiny: " + String.valueOf(loggedUser.getBitcoins()));

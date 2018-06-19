@@ -4,23 +4,33 @@ import repository.Login;
 import repository.User;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class WelcomePanel extends JPanel {
-	private JButton loginButton = new JButton("Zaloguj");
-	private JButton registerButton = new JButton("Zarejestruj");
+class WelcomePanel extends JPanel {
 	private User loggedUser;
-
 	private volatile boolean userCurrentlyLoggedIn = false;
 
-	public WelcomePanel() {
-		add(loginButton);
-		add(registerButton);
+	WelcomePanel() {
+		setLayout(new BorderLayout());
+
+		ImageIcon loginIcon = new ImageIcon("src/main/resources/loginImage.gif");
+		ImageIcon registerIcon = new ImageIcon("src/main/resources/registerImage.gif");
+		ImageIcon exitIcon = new ImageIcon("src/main/resources/exitImage.gif");
+		JButton loginButton = new JButton("Zaloguj", loginIcon);
+		JButton registerButton = new JButton("Zarejestruj", registerIcon);
+		JButton exitButton = new JButton("Wyjdź", exitIcon);
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.add(loginButton);
+		buttonsPanel.add(registerButton);
+		buttonsPanel.add(exitButton);
+		add(buttonsPanel, BorderLayout.NORTH);
+
 
 		loginButton.addActionListener(event -> login());
 		registerButton.addActionListener(event -> register());
 	}
 
-	public User getLoggedUser() {
+	User getLoggedUser() {
 		while (!this.userCurrentlyLoggedIn) {
 			try {
 				Thread.sleep(200);
