@@ -11,12 +11,14 @@ public class MainWindow extends JFrame {
 
 	public MainWindow() throws IOException {
 		super("Bitcoin symulator 2077");
-		setSize(350, 350);
+		setSize(350, 140);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLookAndFeel();
 		setVisible(true);
 
 		welcomeWindow();
+		setSize(500, 350);
 		mainWindow(loggedUser);
 
 	}
