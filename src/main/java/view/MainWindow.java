@@ -13,6 +13,7 @@ public class MainWindow extends JFrame {
 		super("Bitcoin symulator 2077");
 		setSize(350, 350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLookAndFeel();
 		setVisible(true);
 
 		welcomeWindow();
@@ -35,5 +36,13 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 	}
 
+	private static void setLookAndFeel(){
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		}
+		catch (Exception ignored){
+
+		}
+	}
 
 }

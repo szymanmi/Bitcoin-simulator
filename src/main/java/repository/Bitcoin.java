@@ -17,12 +17,12 @@ public class Bitcoin {
 		con.setRequestMethod("GET");
 		//add request header
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
-		int responseCode = con.getResponseCode();
+//		int responseCode = con.getResponseCode();
 
 		BufferedReader in = new BufferedReader(
 				new InputStreamReader(con.getInputStream()));
 		String inputLine;
-		StringBuffer response = new StringBuffer();
+		StringBuilder response = new StringBuilder();
 		while ((inputLine = in.readLine()) != null) { response.append(inputLine); }
 		in.close();
 
