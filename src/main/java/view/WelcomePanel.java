@@ -46,12 +46,27 @@ class WelcomePanel extends JPanel {
 	}
 
 	private void login() {
-		String login = JOptionPane.showInputDialog(null, "Username (janek):");
-		String password = JOptionPane.showInputDialog(null, "Password (janek):");
-		if (Login.isLoginDataCorrect(login, password)) {
-			this.userCurrentlyLoggedIn = true;
-			this.loggedUser = new User(login, User.getDollarsFromDatabase(), User.getBitcoinsFromDatabase());
+		JTextField login = new JTextField();
+		JPasswordField password = new JPasswordField();
+		final JComponent[] inputs = new JComponent[]{
+				new JLabel("Login: "), login,
+				new JLabel("Hasło: "), password
+		};
+
+		int result = JOptionPane.showConfirmDialog(null, inputs, "Zaloguj się", JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION) {
+			if (Login.isLoginDataCorrect(login.getText(), password.getText())) {
+				this.userCurrentlyLoggedIn = true;
+				this.loggedUser = new User(login.getText(), User.getDollarsFromDatabase(), User.getBitcoinsFromDatabase());
+			}
+			else{
+				System.out.println("wprowadziels bledne dane");
+			}
+
+		} else {
+			System.out.println("anulowales wpisywanie danych");
 		}
+
 	}
 
 	private String register() {
