@@ -284,19 +284,19 @@ public class DataBaseJDBC extends DataBase {
 
         try{
             String sql;
-            sql = "UPDATE java_account_state SET bitcoins = ?, dollars = ? WHERE user_id = ?";
+            sql = "UPDATE java_account_state SET bitcoins = ?, PLN = ? WHERE user_id = ?";
             this.openConnection(sql);
             this.conn.setAutoCommit(false);
             this.stmnt.setDouble(1, amountBitcoins);
-            this.stmnt.setDouble(2, amountDollars);
+            this.stmnt.setDouble(2, amountPLN);
             this.stmnt.setInt(3, userId);
             this.stmnt.execute();
 
-            sql = "INSERT INTO java_transaction_history (user_id, bitcoins, dollars, dollars_old, bitcoins_old) VALUES (?, ?, ?, ?, ?)";
+            sql = "INSERT INTO java_transaction_history (user_id, bitcoins, PLN, PLN_old, bitcoins_old) VALUES (?, ?, ?, ?, ?)";
             this.stmnt = this.conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             this.stmnt.setInt(1, userId);
             this.stmnt.setDouble(2, amountBitcoins);
-            this.stmnt.setDouble(3, amountDollars);
+            this.stmnt.setDouble(3, amountPLN);
             this.stmnt.setDouble(4, ret[1]);
             this.stmnt.setDouble(5, ret[0]);
             this.stmnt.execute();
