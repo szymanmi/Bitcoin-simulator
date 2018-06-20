@@ -249,11 +249,11 @@ public class DataBaseJDBC extends DataBase {
     }
     public double payOutUserDolars(int userId, double valueToAdd){
         /**
-         * @return: amount of dollars if fail return -1
+         * @return: amount of PLN if fail return -1
          */
         try{
             String sql;
-            sql = "UPDATE java_account_state SET dollars = dollars - ? WHERE user_id = ?";
+            sql = "UPDATE java_account_state SET PLN = PLN - ? WHERE user_id = ?";
             this.openConnection(sql);
             this.conn.setAutoCommit(true);
             this.stmnt.setDouble(1, valueToAdd);
