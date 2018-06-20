@@ -2,21 +2,21 @@ package repository;
 
 import java.sql.*;
 
-interface DataBase {
-    void getUserData(int idUser);
-    void checkUser(String username, String password);
-    void createUser(String username, String password);
-    void getUserBitcoins(int userId);
-    void getUserDollars(int userId);
-    void getUserBitcoinsAndDolars(int userId);
-    void addUserDolars(int userId, double amount);
-    void userBuyBitcoins(int userId, double amountBitcoins, double amountDolars);
-    void userSellBitcoins(int userId, double amountBitcoins, double amountDolars);
+public class DataBase {
+    int getUserData(int idUser){ return 0;}
+    int checkUser(String username, String password){ return 0;}
+    int createUser(String username, String password){ return 0;}
+    double getUserBitcoins(int userId){ return 0;}
+    double getUserDollars(int userId){ return 0;}
+    double[] getUserBitcoinsAndDolars(int userId){ double ret[] = {0, 0}; return ret;}
+    double addUserDolars(int userId, double amount){ return 0;}
+    double[] userBuyBitcoins(int userId, double amountBitcoins, double amountDolars){ double ret[] = {0, 0}; return ret;}
+    double[] userSellBitcoins(int userId, double amountBitcoins, double amountDolars){double ret[] = {0, 0}; return ret;}
     //void getUserHistorry(St)
 
 }
 
-public class DataBaseJDBC implements DataBase {
+public class DataBaseJDBC extends DataBase {
     private static String JDBCDriver = "com.mysql.jdbc.Driver";
     private static String DBurl = "jdbc:mysql://localhost";
     private static String DBUser = "";
@@ -50,7 +50,7 @@ public class DataBaseJDBC implements DataBase {
         }
     }
 
-    public void getUserData(int idUser){
+    public int getUserData(int idUser){
         this.openConnection();
         try{
             this.stmnt = this.conn.createStatement();
@@ -68,44 +68,56 @@ public class DataBaseJDBC implements DataBase {
         this.closeConnection();
 
         //return Array();
+        return 0;
     }
 
-    public void checkUser(String username, String password){
+    public int checkUser(String username, String password){
         /**
          * @return
          */
         //int >=0 sukces; < 0 - porażka
+        int userId = 1;
         return userId;
     }
-    public void createUser(String username, String password){
+    public int createUser(String username, String password){
         //int >=0 sukces; < 0 - porażka
+        int userId = 1;
         return userId;
     }
-    public void getUserBitcoins(int userId){
+    public double getUserBitcoins(int userId){
         //double
+        double bitcoins = 1;
         return bitcoins;
     }
-    public void getUserDollars(int userId){
+    public double getUserDollars(int userId){
         //double
+        double dolars = 1;
         return dolars;
     }
-    public void getUserBitcoinsAndDolars(int userId){
+    public double[] getUserBitcoinsAndDolars(int userId){
         //tablicy double[2]
+        double bitcoins = 1;
+        double dolars = 1;
         double[] ret = {bitcoins, dolars};
         return ret;
     }
-    public void addUserDolars(int userId, double amount){
+    public double addUserDolars(int userId, double amount){
         //double
+        double dolars = 1;
         return dolars;
     }
-    public void userBuyBitcoins(int userId, double amountBitcoins, double amountDolars){
+    public double[] userBuyBitcoins(int userId, double amountBitcoins, double amountDolars){
         //tablicy double[2]
+        double bitcoins = 1;
+        double dolars = 1;
         double[] ret = {bitcoins, dolars};
         return ret;
     }
-    public void userSellBitcoins(int userId, double amountBitcoins, double amountDolars){
+    public double[] userSellBitcoins(int userId, double amountBitcoins, double amountDolars){
         //tablicy double[2]
-        double[] ret = {bitcoins, dolars};
+        double bitcoins = 1;
+        double dolars = 1;
+        double ret[] = {bitcoins, dolars};
         return ret;
     }
 }
