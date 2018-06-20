@@ -194,20 +194,20 @@ public class DataBaseJDBC extends DataBase {
     }
     public double[] getUserBitcoinsAndDolars(int userId){
         /**
-         * @return: (double[2]) {amount of bitcoins, amount of dollars} if fail {-1, -1}
+         * @return: (double[2]) {amount of bitcoins, amount of PLN} if fail {-1, -1}
          */
         int amount = 0;
-        double dollars = -1, bitcoins = -1;
+        double PLN = -1, bitcoins = -1;
 
         try{
             String sql;
-            sql = "SELECT bitcoins, dollars FROM java_account_state WHERE user_id = ?";
+            sql = "SELECT bitcoins, PLN FROM java_account_state WHERE user_id = ?";
             this.openConnection(sql);
             this.stmnt.setInt(1, userId);
             ResultSet result = this.stmnt.executeQuery();
 
             while(result.next()){
-                dollars = result.getInt("dollars");
+                PLN = result.getInt("dollars");
                 bitcoins = result.getInt("bitcoins");
                 amount++;
             }
