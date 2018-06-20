@@ -1,6 +1,7 @@
 package view;
 
 import repository.Login;
+import repository.Register;
 import repository.User;
 
 import javax.swing.*;
@@ -57,7 +58,7 @@ class WelcomePanel extends JPanel {
 
 		int result = JOptionPane.showConfirmDialog(null, inputs, "Zaloguj się", JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			if (Login.isLoginDataCorrect(login.getText(), password.getText())) {
+			if (Login.isLoginDataCorrect(login.getText(), password.getText()) > 0) {
 				this.userCurrentlyLoggedIn = true;
 				this.loggedUser = new User(login.getText(), User.getDollarsFromDatabase(), User.getBitcoinsFromDatabase());
 			} else {
@@ -70,12 +71,18 @@ class WelcomePanel extends JPanel {
 
 	}
 
-	private String register() {
-		/*
-		TODO
-		no ogarnąć tę funkcję żeby coś konkretnego robiła
-		 */
-		return JOptionPane.showInputDialog(null, "rejestracja");
+	private void register() {
+		JTextField login = new JTextField();
+		JPasswordField password = new JPasswordField();
+		final JComponent[] inputs = new JComponent[]{
+				new JLabel("Login: "), login,
+				new JLabel("Hasło: "), password
+		};
+		int result = JOptionPane.showConfirmDialog(null, inputs, "Zaloguj się", JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION) {
+			if(Register.registerUser(login.getText(), password.getText()) > 0)
+				System.out.println("rejestracja udana");
+		}
 	}
 
 	private void exit() {
