@@ -168,7 +168,7 @@ public class DataBaseJDBC extends DataBase {
          * @return: (double) amount of bitcoins if false is -1
          */
         int amount = 0;
-        double dollars = -1;
+        double PLN = -1;
 
         try{
             String sql;
