@@ -192,7 +192,7 @@ public class DataBaseJDBC extends DataBase {
         else
             return -1;
     }
-    public double[] getUserBitcoinsAndDolars(int userId){
+    public double[] getUserBitcoinsAndPLN(int userId){
         /**
          * @return: (double[2]) {amount of bitcoins, amount of PLN} if fail {-1, -1}
          */
@@ -226,7 +226,7 @@ public class DataBaseJDBC extends DataBase {
             return ret;
         }
     }
-    public double addUserDolars(int userId, double valueToAdd){
+    public double addUserPLN(int userId, double valueToAdd){
         /**
          * @return: amount of PLN if fail return -1
          */
@@ -247,7 +247,7 @@ public class DataBaseJDBC extends DataBase {
         }
         return this.getUserPLN(userId);
     }
-    public double payOutUserDolars(int userId, double valueToAdd){
+    public double payOutUserPLN(int userId, double valueToAdd){
         /**
          * @return: amount of PLN if fail return -1
          */
@@ -280,7 +280,7 @@ public class DataBaseJDBC extends DataBase {
         int amount = 0;
         double ret[] = {-1, -1};
 
-        ret = this.getUserBitcoinsAndDolars(userId);
+        ret = this.getUserBitcoinsAndPLN(userId);
 
         try{
             String sql;
@@ -310,7 +310,7 @@ public class DataBaseJDBC extends DataBase {
             amount = 0;
         }
 
-        ret = this.getUserBitcoinsAndDolars(userId);
+        ret = this.getUserBitcoinsAndPLN(userId);
         if(amount == 1)
             return ret;
         else {
