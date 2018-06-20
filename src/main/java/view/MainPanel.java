@@ -26,8 +26,8 @@ class MainPanel extends JPanel {
 		userInfoPanel.setLayout(new GridBagLayout());
 		userInfoLabel = new JLabel[3];
 		userInfoLabel[0] = new JLabel("Username: " + loggedUser.getUserName());
-		userInfoLabel[1] = new JLabel("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).toPlainString());
-		userInfoLabel[2] = new JLabel("Bitcoiny: " + loggedUser.getBitcoins().toPlainString());
+		userInfoLabel[1] = new JLabel("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		userInfoLabel[2] = new JLabel("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 
 		for (int i = 0; i < 3; i++) {
 			userInfoLabel[i].setFont(new Font("Sans Serif", 0, 16));
@@ -106,8 +106,8 @@ class MainPanel extends JPanel {
 
 	private void refreshUserInfo() {
 		userInfoLabel[0].setText("Username: " + loggedUser.getUserName());
-		userInfoLabel[1].setText("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).toPlainString());
-		userInfoLabel[2].setText(" Bitcoiny: " + loggedUser.getBitcoins().toPlainString());
+		userInfoLabel[1].setText("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		userInfoLabel[2].setText("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 	}
 
 	private void exit() {
