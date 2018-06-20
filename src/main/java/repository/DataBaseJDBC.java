@@ -247,6 +247,27 @@ public class DataBaseJDBC extends DataBase {
         }
         return this.getUserDollars(userId);
     }
+    public double payOutUserDolars(int userId, double valueToAdd){
+        /**
+         * @return: amount of dollars if fail return -1
+         */
+        try{
+            String sql;
+            sql = "UPDATE java_account_state SET dollars = dollars - ? WHERE user_id = ?";
+            this.openConnection(sql);
+            this.conn.setAutoCommit(true);
+            this.stmnt.setDouble(1, valueToAdd);
+            this.stmnt.setInt(2, userId);
+            this.stmnt.execute();
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return this.getUserDollars(userId);
+    }
 
     public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountDollars){
         /**
