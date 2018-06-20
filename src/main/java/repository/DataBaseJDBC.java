@@ -9,15 +9,15 @@ public class DataBaseJDBC extends DataBase {
     private static String DBPassword = "Atyp123@";
 
     private Connection conn = null;
-    private Statement stmnt = null;
+    private PreparedStatement stmnt = null;
     public DataBaseJDBC(){
 
     }
-    private void openConnection() throws SQLException {
+    private void openConnection(String SQL) throws SQLException {
         //Class.forName(this.JDBCDriver);
         //łączenie z bazą
         this.conn = DriverManager.getConnection(DBurl, DBUser, DBPassword);
-        this.stmnt = this.conn.createStatement();
+        this.stmnt = this.conn.prepareStatement(SQL);
     }
 
     private void closeConnection() throws SQLException {
@@ -26,16 +26,18 @@ public class DataBaseJDBC extends DataBase {
     }
 
     public String getUserName(int idUser){
-        /*
-         * @retuen: username if success, or null if fail
+        /**
+         * @return: (String) username if success, or null if fail
          */
         String username = null;
         int amount = 0;
         try{
-            this.openConnection();
             String sql;
-            sql = "SELECT username FROM java_users WHERE id = '" + idUser + "'";
-            ResultSet result = this.stmnt.executeQuery(sql);
+            sql = "SELECT username FROM java_users WHERE id = ?";
+            this.openConnection(sql);
+            this.stmnt.setInt(1, idUser);
+
+            ResultSet result = this.stmnt.executeQuery();
 
             while(result.next()){
                 username = result.getString("username");
@@ -55,16 +57,59 @@ public class DataBaseJDBC extends DataBase {
 
     public int checkUser(String username, String password){
         /**
-         * @return
+         * @return: (int) id user >= 0 success; < 0 fail
          */
-        //int >=0 sukces; < 0 - porażka
-        int userId = 1;
-        return userId;
+        int userId = -1, amount = 0;
+
+        try{
+            String sql;
+            sql = "SELECT id FROM java_users WHERE LOWER(username) = ? AND password = ?";
+            this.openConnection(sql);
+            this.stmnt.setString(1, username.toLowerCase());
+            this.stmnt.setString(2, password);
+            ResultSet result = this.stmnt.executeQuery();
+
+            while(result.next()){
+                userId = result.getInt("id");
+                amount++;
+            }
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(amount == 1)
+            return userId;
+        else
+            return -1;
     }
     public int createUser(String username, String password){
-        //int >=0 sukces; < 0 - porażka
-        int userId = 1;
-        return userId;
+        /**
+         * @return: (int) id user >= 0 success; < 0 fail
+         */
+        int userId = -1, amount = 0;
+
+        try{
+            String sql;
+            sql = "SELECT id FROM java_users WHERE LOWER(username) = ?";
+            this.openConnection(sql);
+            this.stmnt.setString(1, username.toLowerCase());
+            this.stmnt.setString(2, password);
+            ResultSet result = this.stmnt.executeQuery(sql);
+
+            while(result.next()){
+                userId = result.getInt("id");
+                amount++;
+            }
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(amount == 1)
+            return userId;
+        else
+            return -1;
     }
     public double getUserBitcoins(int userId){
         //double
