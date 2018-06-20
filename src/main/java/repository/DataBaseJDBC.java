@@ -172,7 +172,7 @@ public class DataBaseJDBC extends DataBase {
 
         try{
             String sql;
-            sql = "SELECT dollars FROM java_account_state WHERE user_id = ?";
+            sql = "SELECT PLN FROM java_account_state WHERE user_id = ?";
             this.openConnection(sql);
             this.stmnt.setInt(1, userId);
             ResultSet result = this.stmnt.executeQuery();
