@@ -101,6 +101,7 @@ public class DataBaseJDBC extends DataBase {
     }
     public double[] userSellBitcoins(int userId, double amountBitcoins, double amountDolars){
         //tablicy double[2]
+        //bleble ble
         double bitcoins = 1;
         double dolars = 1;
         double ret[] = {bitcoins, dolars};
