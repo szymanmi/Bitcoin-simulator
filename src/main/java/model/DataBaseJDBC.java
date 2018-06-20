@@ -1,4 +1,6 @@
-package repository;
+package model;
+
+import model.DataBase;
 
 import java.sql.*;
 

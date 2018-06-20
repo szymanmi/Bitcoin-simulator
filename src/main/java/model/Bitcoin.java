@@ -1,4 +1,4 @@
-package repository;
+package model;
 
 
 import org.json.JSONObject;

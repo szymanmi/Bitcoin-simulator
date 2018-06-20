@@ -1,4 +1,6 @@
-package repository;
+package model;
+
+import model.DataBaseJDBC;
 
 public class Login {
 

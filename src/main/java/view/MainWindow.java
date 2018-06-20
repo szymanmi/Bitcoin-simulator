@@ -1,6 +1,6 @@
 package view;
 
-import repository.User;
+import model.User;
 
 import javax.swing.*;
 import java.io.IOException;

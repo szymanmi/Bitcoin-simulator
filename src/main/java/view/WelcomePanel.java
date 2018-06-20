@@ -1,14 +1,14 @@
 package view;
 
-import repository.Login;
-import repository.Register;
-import repository.User;
+import model.Login;
+import model.Register;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import static repository.Bitcoin.getBitcoinValue;
+import static model.Bitcoin.getBitcoinValue;
 
 class WelcomePanel extends JPanel {
 	private User loggedUser;

@@ -1,6 +1,6 @@
 package view;
 
-import repository.User;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static repository.Bitcoin.getBitcoinValue;
+import static model.Bitcoin.getBitcoinValue;
 
 class MainPanel extends JPanel {
 	private User loggedUser;
