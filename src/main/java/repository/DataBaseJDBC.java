@@ -226,24 +226,76 @@ public class DataBaseJDBC extends DataBase {
             return ret;
         }
     }
-    public double addUserDolars(int userId, double amount){
-        //double
-        double dolars = 1;
-        return dolars;
+    public double addUserDolars(int userId, double valueToAdd){
+        /**
+         * @return: amount of dollars if fail return -1
+         */
+        try{
+            String sql;
+            sql = "UPDATE java_account_state SET dollars = dollars + ? WHERE user_id = ?";
+            this.openConnection(sql);
+            this.conn.setAutoCommit(true);
+            this.stmnt.setDouble(1, valueToAdd);
+            this.stmnt.setInt(2, userId);
+            this.stmnt.execute();
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return this.getUserDollars(userId);
     }
-    public double[] userBuyBitcoins(int userId, double amountBitcoins, double amountDolars){
+
+    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountDollars){
+        /**
+         * userId (int): id user, to execut in database
+         * amountBitcoins - new value of bitcoins
+         * amountDollars - new value of dollars
+         * @return: (double[2]) {amount of bitcoins, amount of dollars} if fail {-1, -1}
+         */
         //tablicy double[2]
-        double bitcoins = 1;
-        double dolars = 1;
-        double[] ret = {bitcoins, dolars};
-        return ret;
-    }
-    public double[] userSellBitcoins(int userId, double amountBitcoins, double amountDolars){
-        //tablicy double[2]
-        //bleble ble
-        double bitcoins = 1;
-        double dolars = 1;
-        double ret[] = {bitcoins, dolars};
-        return ret;
+        int amount = 0;
+        double ret[] = {-1, -1};
+
+        ret = this.getUserBitcoinsAndDolars(userId);
+
+        try{
+            String sql;
+            sql = "UPDATE java_account_state SET bitcoins = ?, dollars = ? WHERE user_id = ?";
+            this.openConnection(sql);
+            this.conn.setAutoCommit(false);
+            this.stmnt.setDouble(1, amountBitcoins);
+            this.stmnt.setDouble(2, amountDollars);
+            this.stmnt.setInt(3, userId);
+            this.stmnt.execute();
+
+            sql = "INSERT INTO java_transaction_history (user_id, bitcoins, dollars, dollars_old, bitcoins_old) VALUES (?, ?, ?, ?, ?)";
+            this.stmnt = this.conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            this.stmnt.setInt(1, userId);
+            this.stmnt.setDouble(2, amountBitcoins);
+            this.stmnt.setDouble(3, amountDollars);
+            this.stmnt.setDouble(4, ret[1]);
+            this.stmnt.setDouble(5, ret[0]);
+            this.stmnt.execute();
+
+            this.conn.commit();
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+            amount = 0;
+        }
+
+        ret = this.getUserBitcoinsAndDolars(userId);
+        if(amount == 1)
+            return ret;
+        else {
+            ret[0] = -1;
+            ret[1] = -1;
+            return ret;
+        }
     }
 }
