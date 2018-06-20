@@ -1,3 +1,5 @@
+package app;
+
 import view.MainWindow;
 
 import java.io.IOException;
