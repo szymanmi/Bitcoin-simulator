@@ -266,15 +266,15 @@ public class DataBaseJDBC extends DataBase {
             System.out.println(e.getMessage());
             return -1;
         }
-        return this.getUserDollars(userId);
+        return this.getUserPLN(userId);
     }
 
-    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountDollars){
+    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountPLN){
         /**
          * userId (int): id user, to execut in database
          * amountBitcoins - new value of bitcoins
-         * amountDollars - new value of dollars
-         * @return: (double[2]) {amount of bitcoins, amount of dollars} if fail {-1, -1}
+         * amountPLN - new value of PLN
+         * @return: (double[2]) {amount of bitcoins, amount of PLN} if fail {-1, -1}
          */
         //tablicy double[2]
         int amount = 0;
