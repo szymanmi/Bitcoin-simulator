@@ -207,7 +207,7 @@ public class DataBaseJDBC extends DataBase {
             ResultSet result = this.stmnt.executeQuery();
 
             while(result.next()){
-                PLN = result.getInt("dollars");
+                PLN = result.getInt("PLN");
                 bitcoins = result.getInt("bitcoins");
                 amount++;
             }
@@ -217,7 +217,7 @@ public class DataBaseJDBC extends DataBase {
             //e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        double ret[] = {bitcoins, dollars};
+        double ret[] = {bitcoins, PLN};
         if(amount == 1)
             return ret;
         else {
@@ -228,7 +228,7 @@ public class DataBaseJDBC extends DataBase {
     }
     public double addUserDolars(int userId, double valueToAdd){
         /**
-         * @return: amount of dollars if fail return -1
+         * @return: amount of PLN if fail return -1
          */
         try{
             String sql;
