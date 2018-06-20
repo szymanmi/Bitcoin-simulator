@@ -178,7 +178,7 @@ public class DataBaseJDBC extends DataBase {
             ResultSet result = this.stmnt.executeQuery();
 
             while(result.next()){
-                PLN = result.getInt("dollars");
+                PLN = result.getInt("PLN");
                 amount++;
             }
 
