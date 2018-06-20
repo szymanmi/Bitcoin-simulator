@@ -10,9 +10,11 @@ public class DataBaseJDBC extends DataBase {
 
     private Connection conn = null;
     private PreparedStatement stmnt = null;
-    public DataBaseJDBC(){
+
+    public DataBaseJDBC() {
 
     }
+
     private void openConnection(String SQL) throws SQLException {
         //Class.forName(this.JDBCDriver);
         //łączenie z bazą
@@ -25,13 +27,13 @@ public class DataBaseJDBC extends DataBase {
         this.conn.close();
     }
 
-    public String getUserName(int idUser){
+    public String getUserName(int idUser) {
         /**
          * @return: (String) username if success, or null if fail
          */
         String username = null;
         int amount = 0;
-        try{
+        try {
             String sql;
             sql = "SELECT username FROM java_users WHERE id = ?";
             this.openConnection(sql);
@@ -39,7 +41,7 @@ public class DataBaseJDBC extends DataBase {
 
             ResultSet result = this.stmnt.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 username = result.getString("username");
                 amount++;
             }
@@ -50,19 +52,19 @@ public class DataBaseJDBC extends DataBase {
             System.out.println(e.getMessage());
         }
 
-        if(amount == 1)
+        if (amount == 1)
             return username;
         else
             return null;
     }
 
-    public int checkUser(String username, String password){
+    public int checkUser(String username, String password) {
         /**
          * @return: (int) id user >= 0 success; < 0 fail
          */
         int userId = -1, amount = 0;
 
-        try{
+        try {
             String sql;
             sql = "SELECT id FROM java_users WHERE LOWER(username) = ? AND password = ?";
             this.openConnection(sql);
@@ -70,7 +72,7 @@ public class DataBaseJDBC extends DataBase {
             this.stmnt.setString(2, password);
             ResultSet result = this.stmnt.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 userId = result.getInt("id");
                 amount++;
             }
@@ -80,18 +82,19 @@ public class DataBaseJDBC extends DataBase {
             //e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        if(amount == 1)
+        if (amount == 1)
             return userId;
         else
             return -1;
     }
-    public int createUser(String username, String password){
+
+    public int createUser(String username, String password) {
         /**
          * @return: (int) id user >= 0 success; < 0 fail (-2 - username exist)
          */
         int userId = -1, amount = 0;
 
-        try{
+        try {
             String sql;
             sql = "SELECT id FROM java_users WHERE LOWER(username) = ?";
             this.openConnection(sql);
@@ -99,11 +102,11 @@ public class DataBaseJDBC extends DataBase {
             this.stmnt.setString(1, username.toLowerCase());
             ResultSet result = this.stmnt.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 userId = result.getInt("id");
                 amount++;
             }
-            if(amount > 0){
+            if (amount > 0) {
                 this.conn.rollback();
                 this.closeConnection();
                 return -2;
@@ -114,7 +117,7 @@ public class DataBaseJDBC extends DataBase {
             this.stmnt.setString(2, password);
             this.stmnt.executeUpdate();
             result = this.stmnt.getGeneratedKeys();
-            if(result.next())
+            if (result.next())
                 userId = result.getInt(1);
 
             sql = "INSERT INTO java_account_state (user_id, PLN, bitcoins) VALUES (?, 0, 0)";
@@ -128,26 +131,27 @@ public class DataBaseJDBC extends DataBase {
             //e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        if(userId > 0)
+        if (userId > 0)
             return userId;
         else
             return -1;
     }
-    public double getUserBitcoins(int userId){
+
+    public double getUserBitcoins(int userId) {
         /**
          * @return: (double) amount of bitcoins if false is -1
          */
         int amount = 0;
         double bitcoins = -1;
 
-        try{
+        try {
             String sql;
             sql = "SELECT bitcoins FROM java_account_state WHERE user_id = ?";
             this.openConnection(sql);
             this.stmnt.setInt(1, userId);
             ResultSet result = this.stmnt.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 bitcoins = result.getInt("bitcoins");
                 amount++;
             }
@@ -157,12 +161,13 @@ public class DataBaseJDBC extends DataBase {
             //e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        if(amount == 1)
+        if (amount == 1)
             return bitcoins;
         else
             return -1;
     }
-    public double getUserPLN(int userId){
+
+    public double getUserPLN(int userId) {
         //double
         /**
          * @return: (double) amount of bitcoins if false is -1
@@ -170,14 +175,14 @@ public class DataBaseJDBC extends DataBase {
         int amount = 0;
         double PLN = -1;
 
-        try{
+        try {
             String sql;
             sql = "SELECT PLN FROM java_account_state WHERE user_id = ?";
             this.openConnection(sql);
             this.stmnt.setInt(1, userId);
             ResultSet result = this.stmnt.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 PLN = result.getInt("PLN");
                 amount++;
             }
@@ -187,26 +192,27 @@ public class DataBaseJDBC extends DataBase {
             //e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        if(amount == 1)
+        if (amount == 1)
             return PLN;
         else
             return -1;
     }
-    public double[] getUserBitcoinsAndPLN(int userId){
+
+    public double[] getUserBitcoinsAndPLN(int userId) {
         /**
          * @return: (double[2]) {amount of bitcoins, amount of PLN} if fail {-1, -1}
          */
         int amount = 0;
         double PLN = -1, bitcoins = -1;
 
-        try{
+        try {
             String sql;
             sql = "SELECT bitcoins, PLN FROM java_account_state WHERE user_id = ?";
             this.openConnection(sql);
             this.stmnt.setInt(1, userId);
             ResultSet result = this.stmnt.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 PLN = result.getInt("PLN");
                 bitcoins = result.getInt("bitcoins");
                 amount++;
@@ -218,7 +224,7 @@ public class DataBaseJDBC extends DataBase {
             System.out.println(e.getMessage());
         }
         double ret[] = {bitcoins, PLN};
-        if(amount == 1)
+        if (amount == 1)
             return ret;
         else {
             ret[0] = -1;
@@ -226,11 +232,12 @@ public class DataBaseJDBC extends DataBase {
             return ret;
         }
     }
-    public double addUserPLN(int userId, double valueToAdd){
+
+    public double addUserPLN(int userId, double valueToAdd) {
         /**
          * @return: amount of PLN if fail return -1
          */
-        try{
+        try {
             String sql;
             sql = "UPDATE java_account_state SET PLN = PLN + ? WHERE user_id = ?";
             this.openConnection(sql);
@@ -247,11 +254,12 @@ public class DataBaseJDBC extends DataBase {
         }
         return this.getUserPLN(userId);
     }
-    public double payOutUserPLN(int userId, double valueToAdd){
+
+    public double payOutUserPLN(int userId, double valueToAdd) {
         /**
          * @return: amount of PLN if fail return -1
          */
-        try{
+        try {
             String sql;
             sql = "UPDATE java_account_state SET PLN = PLN - ? WHERE user_id = ?";
             this.openConnection(sql);
@@ -269,7 +277,7 @@ public class DataBaseJDBC extends DataBase {
         return this.getUserPLN(userId);
     }
 
-    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountPLN){
+    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountPLN) {
         /**
          * userId (int): id user, to execut in database
          * amountBitcoins - new value of bitcoins
@@ -282,7 +290,7 @@ public class DataBaseJDBC extends DataBase {
 
         ret = this.getUserBitcoinsAndPLN(userId);
 
-        try{
+        try {
             String sql;
             sql = "UPDATE java_account_state SET bitcoins = ?, PLN = ? WHERE user_id = ?";
             this.openConnection(sql);
@@ -311,7 +319,7 @@ public class DataBaseJDBC extends DataBase {
         }
 
         ret = this.getUserBitcoinsAndPLN(userId);
-        if(amount == 1)
+        if (amount == 1)
             return ret;
         else {
             ret[0] = -1;
