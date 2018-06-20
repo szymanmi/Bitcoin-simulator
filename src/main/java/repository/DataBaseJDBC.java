@@ -188,7 +188,7 @@ public class DataBaseJDBC extends DataBase {
             System.out.println(e.getMessage());
         }
         if(amount == 1)
-            return dollars;
+            return PLN;
         else
             return -1;
     }
