@@ -1,22 +1,24 @@
 package repository;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 public class User {
 	private String userName;
-	private double dollars;
-	private double bitcoins;
+	private BigDecimal dollars;
+	private BigDecimal bitcoins;
 
 	public User(String userName, double dollars, double bitcoins) {
 		this.userName = userName;
-		this.dollars = dollars;
-		this.bitcoins = bitcoins;
-
+		this.dollars = new BigDecimal(dollars,MathContext.DECIMAL64).stripTrailingZeros();
+		this.bitcoins = new BigDecimal(bitcoins,MathContext.DECIMAL64).stripTrailingZeros();
 	}
 
-	public void setDollars(double dollars) {
+	public void setDollars(BigDecimal dollars) {
 		this.dollars = dollars;
 	}
 
-	public void setBitcoins(double bitcoins) {
+	public void setBitcoins(BigDecimal bitcoins) {
 		this.bitcoins = bitcoins;
 	}
 
@@ -24,19 +26,19 @@ public class User {
 		return userName;
 	}
 
-	public double getDollars() {
+	public BigDecimal getDollars() {
 		return dollars;
 	}
 
-	public double getBitcoins() {
+	public BigDecimal getBitcoins() {
 		return bitcoins;
 	}
 
-	public static double getDollarsFromDatabase(){
-		return 150;
+	public static double getDollarsFromDatabase() {
+		return 50000;
 	}
 
-	public static double getBitcoinsFromDatabase(){
+	public static double getBitcoinsFromDatabase() {
 		return 0.3;
 	}
 
