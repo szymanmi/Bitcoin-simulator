@@ -117,7 +117,7 @@ public class DataBaseJDBC extends DataBase {
             if(result.next())
                 userId = result.getInt(1);
 
-            sql = "INSERT INTO java_account_state (user_id, dollars, bitcoins) VALUES (?, 0, 0)";
+            sql = "INSERT INTO java_account_state (user_id, PLN, bitcoins) VALUES (?, 0, 0)";
             this.stmnt = this.conn.prepareStatement(sql);
             this.stmnt.setInt(1, userId);
             this.stmnt.executeUpdate();
