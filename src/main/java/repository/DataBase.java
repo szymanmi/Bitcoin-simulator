@@ -8,10 +8,10 @@ public class DataBase {
     public int createUser(String username, String password){ return -1;}
     public double getUserBitcoins(int userId){ return -1;}
     public double getUserPLN(int userId){ return -1;}
-    public double[] getUserBitcoinsAndDolars(int userId){ double ret[] = {-1, -1}; return ret;}
-    public double addUserDolars(int userId, double valueToAdd){ return -1;}
-    public double payOutUserDolars(int userId, double valueToAdd){ return -1;}
-    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountDolars){ double ret[] = {-1, -1}; return ret;}
+    public double[] getUserBitcoinsAndPLN(int userId){ double ret[] = {-1, -1}; return ret;}
+    public double addUserPLN(int userId, double valueToAdd){ return -1;}
+    public double payOutUserPLN(int userId, double valueToAdd){ return -1;}
+    public double[] userUpdateAccountState(int userId, double amountBitcoins, double amountPLN){ double ret[] = {-1, -1}; return ret;}
     //void getUserHistorry(St)
 
 }
