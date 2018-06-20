@@ -5,17 +5,17 @@ import java.math.MathContext;
 
 public class User {
 	private String userName;
-	private BigDecimal dollars;
+	private BigDecimal PLN;
 	private BigDecimal bitcoins;
 
 	public User(String userName, double dollars, double bitcoins) {
 		this.userName = userName;
-		this.dollars = new BigDecimal(dollars,MathContext.DECIMAL64).stripTrailingZeros();
+		this.PLN = new BigDecimal(dollars,MathContext.DECIMAL64).stripTrailingZeros();
 		this.bitcoins = new BigDecimal(bitcoins,MathContext.DECIMAL64).stripTrailingZeros();
 	}
 
-	public void setDollars(BigDecimal dollars) {
-		this.dollars = dollars;
+	public void setDollars(BigDecimal PLN) {
+		this.PLN = PLN;
 	}
 
 	public void setBitcoins(BigDecimal bitcoins) {
@@ -27,7 +27,7 @@ public class User {
 	}
 
 	public BigDecimal getDollars() {
-		return dollars;
+		return PLN;
 	}
 
 	public BigDecimal getBitcoins() {

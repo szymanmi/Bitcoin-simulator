@@ -35,6 +35,7 @@ class MainPanel extends JPanel {
 			userInfoPanel.add(userInfoLabel[i], c);
 		}
 
+
 		String BTCPrice = String.valueOf(getBitcoinValue());
 		JLabel currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
 		currentBTCPriceLabel.setFont(new Font("Sans Serif", 0, 18));
