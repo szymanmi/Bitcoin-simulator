@@ -4,57 +4,53 @@ import java.sql.*;
 
 public class DataBaseJDBC extends DataBase {
     private static String JDBCDriver = "com.mysql.jdbc.Driver";
-    private static String DBurl = "jdbc:mysql://localhost";
-    private static String DBUser = "";
-    private static String DBPassword = "";
+    private static String DBurl = "jdbc:mysql://atypowa.cba.pl/atypowa_cba_pl?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static String DBUser = "atypowa";
+    private static String DBPassword = "Atyp123@";
 
     private Connection conn = null;
     private Statement stmnt = null;
     public DataBaseJDBC(){
 
     }
-    private void openConnection(){
-        try{
-            Class.forName(JDBCDriver);
-            //łączenie z bazą
-            this.conn = DriverManager.getConnection(DBurl, DBUser, DBPassword);
-
-        }
-        catch(SQLException se){
-            se.printStackTrace();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+    private void openConnection() throws SQLException {
+        //Class.forName(this.JDBCDriver);
+        //łączenie z bazą
+        this.conn = DriverManager.getConnection(DBurl, DBUser, DBPassword);
+        this.stmnt = this.conn.createStatement();
     }
 
-    private void closeConnection(){
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void closeConnection() throws SQLException {
+        this.stmnt.close();
+        this.conn.close();
     }
 
-    public int getUserData(int idUser){
-        this.openConnection();
+    public String getUserName(int idUser){
+        /*
+         * @retuen: username if success, or null if fail
+         */
+        String username = null;
+        int amount = 0;
         try{
-            this.stmnt = this.conn.createStatement();
+            this.openConnection();
             String sql;
-            sql = "SELECT id, username FROM users";
+            sql = "SELECT username FROM java_users WHERE id = '" + idUser + "'";
             ResultSet result = this.stmnt.executeQuery(sql);
 
+            while(result.next()){
+                username = result.getString("username");
+                amount++;
+            }
 
-
-            this.stmnt.close();
+            this.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        this.closeConnection();
-
-        //return Array();
-        return 0;
+        if(amount == 1)
+            return username;
+        else
+            return null;
     }
 
     public int checkUser(String username, String password){

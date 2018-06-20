@@ -3,8 +3,8 @@ package repository;
 import java.sql.*;
 
 public class DataBase {
-    public int getUserData(int idUser){ return 0;}
-    public int checkUser(String username, String password){ return 0;}
+    public String getUserData(int idUser){ return null;}
+    public int getUserName(String username, String password){ return 0;}
     public int createUser(String username, String password){ return 0;}
     public double getUserBitcoins(int userId){ return 0;}
     public double getUserDollars(int userId){ return 0;}
