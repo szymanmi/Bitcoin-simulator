@@ -46,7 +46,8 @@ public class DataBaseJDBC extends DataBase {
 
             this.closeConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         if(amount == 1)
@@ -76,7 +77,8 @@ public class DataBaseJDBC extends DataBase {
 
             this.closeConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         if(amount == 1)
             return userId;
@@ -85,7 +87,7 @@ public class DataBaseJDBC extends DataBase {
     }
     public int createUser(String username, String password){
         /**
-         * @return: (int) id user >= 0 success; < 0 fail
+         * @return: (int) id user >= 0 success; < 0 fail (-2 - username exist)
          */
         int userId = -1, amount = 0;
 
@@ -93,20 +95,40 @@ public class DataBaseJDBC extends DataBase {
             String sql;
             sql = "SELECT id FROM java_users WHERE LOWER(username) = ?";
             this.openConnection(sql);
+            this.conn.setAutoCommit(false);
             this.stmnt.setString(1, username.toLowerCase());
-            this.stmnt.setString(2, password);
-            ResultSet result = this.stmnt.executeQuery(sql);
+            ResultSet result = this.stmnt.executeQuery();
 
             while(result.next()){
                 userId = result.getInt("id");
                 amount++;
             }
+            if(amount > 0){
+                this.conn.rollback();
+                this.closeConnection();
+                return -2;
+            }
+            sql = "INSERT INTO java_users (username, password) VALUES (?, ?)";
+            this.stmnt = this.conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            this.stmnt.setString(1, username);
+            this.stmnt.setString(2, password);
+            this.stmnt.executeUpdate();
+            result = this.stmnt.getGeneratedKeys();
+            if(result.next())
+                userId = result.getInt(1);
 
+            sql = "INSERT INTO java_account_state (user_id, dollars, bitcoins) VALUES (?, 0, 0)";
+            this.stmnt = this.conn.prepareStatement(sql);
+            this.stmnt.setInt(1, userId);
+            this.stmnt.executeUpdate();
+
+            this.conn.commit();
             this.closeConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        if(amount == 1)
+        if(userId > 0)
             return userId;
         else
             return -1;
