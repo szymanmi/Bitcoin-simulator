@@ -162,7 +162,7 @@ public class DataBaseJDBC extends DataBase {
         else
             return -1;
     }
-    public double getUserDollars(int userId){
+    public double getUserPLN(int userId){
         //double
         /**
          * @return: (double) amount of bitcoins if false is -1
