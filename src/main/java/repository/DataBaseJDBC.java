@@ -134,21 +134,97 @@ public class DataBaseJDBC extends DataBase {
             return -1;
     }
     public double getUserBitcoins(int userId){
-        //double
-        double bitcoins = 1;
-        return bitcoins;
+        /**
+         * @return: (double) amount of bitcoins if false is -1
+         */
+        int amount = 0;
+        double bitcoins = -1;
+
+        try{
+            String sql;
+            sql = "SELECT bitcoins FROM java_account_state WHERE user_id = ?";
+            this.openConnection(sql);
+            this.stmnt.setInt(1, userId);
+            ResultSet result = this.stmnt.executeQuery();
+
+            while(result.next()){
+                bitcoins = result.getInt("bitcoins");
+                amount++;
+            }
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        if(amount == 1)
+            return bitcoins;
+        else
+            return -1;
     }
     public double getUserDollars(int userId){
         //double
-        double dolars = 1;
-        return dolars;
+        /**
+         * @return: (double) amount of bitcoins if false is -1
+         */
+        int amount = 0;
+        double dollars = -1;
+
+        try{
+            String sql;
+            sql = "SELECT dollars FROM java_account_state WHERE user_id = ?";
+            this.openConnection(sql);
+            this.stmnt.setInt(1, userId);
+            ResultSet result = this.stmnt.executeQuery();
+
+            while(result.next()){
+                dollars = result.getInt("dollars");
+                amount++;
+            }
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        if(amount == 1)
+            return dollars;
+        else
+            return -1;
     }
     public double[] getUserBitcoinsAndDolars(int userId){
-        //tablicy double[2]
-        double bitcoins = 1;
-        double dolars = 1;
-        double[] ret = {bitcoins, dolars};
-        return ret;
+        /**
+         * @return: (double[2]) {amount of bitcoins, amount of dollars} if fail {-1, -1}
+         */
+        int amount = 0;
+        double dollars = -1, bitcoins = -1;
+
+        try{
+            String sql;
+            sql = "SELECT bitcoins, dollars FROM java_account_state WHERE user_id = ?";
+            this.openConnection(sql);
+            this.stmnt.setInt(1, userId);
+            ResultSet result = this.stmnt.executeQuery();
+
+            while(result.next()){
+                dollars = result.getInt("dollars");
+                bitcoins = result.getInt("bitcoins");
+                amount++;
+            }
+
+            this.closeConnection();
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        double ret[] = {bitcoins, dollars};
+        if(amount == 1)
+            return ret;
+        else {
+            ret[0] = -1;
+            ret[1] = -1;
+            return ret;
+        }
     }
     public double addUserDolars(int userId, double amount){
         //double
