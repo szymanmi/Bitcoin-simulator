@@ -29,8 +29,8 @@ class MainPanel extends JPanel {
 		userInfoPanel.setLayout(new GridBagLayout());
 		userInfoLabel = new JLabel[3];
 		userInfoLabel[0] = new JLabel("Username: " + loggedUser.getUserName());
-		userInfoLabel[1] = new JLabel("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
-		userInfoLabel[2] = new JLabel("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		userInfoLabel[1] = new JLabel("PLN: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		userInfoLabel[2] = new JLabel("BTC: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 
 		for (int i = 0; i < 3; i++) {
 			userInfoLabel[i].setFont(new Font("Sans Serif", 0, 16));
@@ -46,7 +46,9 @@ class MainPanel extends JPanel {
 		ImageIcon buyIcon = new ImageIcon("src/main/resources/buyImage.gif");
 		ImageIcon sellIcon = new ImageIcon("src/main/resources/sellImage.gif");
 		ImageIcon exitIcon = new ImageIcon("src/main/resources/exitImage.gif");
-		JButton addPLNButton = new JButton("Wpłać PLN", buyIcon);
+		ImageIcon PLNIcon = new ImageIcon("src/main/resources/PLNImage.gif");
+
+		JButton addPLNButton = new JButton("Wpłać PLN", PLNIcon);
 		JButton buyButton = new JButton("Kup BTC", buyIcon);
 		JButton sellButton = new JButton("Sprzedaj BTC", sellIcon);
 		JButton exitButton = new JButton("Wyjdź", exitIcon);
@@ -136,8 +138,8 @@ class MainPanel extends JPanel {
 		loggedUser.setDollars(new BigDecimal(baza.getUserPLN(loggedUser.getUserId())));
 		loggedUser.setBitcoins(new BigDecimal(baza.getUserBitcoins(loggedUser.getUserId())));
 		userInfoLabel[0].setText("Username: " + loggedUser.getUserName());
-		userInfoLabel[1].setText("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
-		userInfoLabel[2].setText("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		userInfoLabel[1].setText("PLN: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		userInfoLabel[2].setText("BTC: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 		//System.out.println(loggedUser.getDollars());
 		//System.out.println(baza.getUserPLN(loggedUser.getUserId()));
 		String BTCPrice = String.valueOf(getBitcoinValue());
