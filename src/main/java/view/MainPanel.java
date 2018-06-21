@@ -43,6 +43,7 @@ class MainPanel extends JPanel {
 		ImageIcon buyIcon = new ImageIcon("src/main/resources/buyImage.gif");
 		ImageIcon sellIcon = new ImageIcon("src/main/resources/sellImage.gif");
 		ImageIcon exitIcon = new ImageIcon("src/main/resources/exitImage.gif");
+		JButton addPLNButton = new JButton("Wpłać PLN", buyIcon);
 		JButton buyButton = new JButton("Kup BTC", buyIcon);
 		JButton sellButton = new JButton("Sprzedaj BTC", sellIcon);
 		JButton exitButton = new JButton("Wyjdź", exitIcon);
@@ -63,11 +64,21 @@ class MainPanel extends JPanel {
 		});
 
 
+		c.gridy = 3;
+		userInfoPanel.add(addPLNButton, c);
+		c.gridy = 4;
+		userInfoPanel.add(buyButton, c);
+		c.gridy = 5;
+		userInfoPanel.add(sellButton, c);
+		c.gridy = 6;
+		userInfoPanel.add(exitButton, c);
+
 		add(userInfoPanel);
-		add(buyButton);
-		add(sellButton);
+		//add(addPLNButton);
+		//add(buyButton);
+		//add(sellButton);
 		add(currentBTCPriceLabel);
-		add(exitButton);
+		//add(exitButton);
 	}
 
 	private void buy() throws IOException {

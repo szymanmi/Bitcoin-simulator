@@ -1,5 +1,7 @@
 package repository;
 
+import model.DataBase;
+
 import java.sql.*;
 
 public class DataBaseJDBC extends DataBase {
