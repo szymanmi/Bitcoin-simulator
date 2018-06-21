@@ -1,7 +1,5 @@
 package model;
 
-import model.DataBaseJDBC;
-
 public class Login {
 
     public static int isLoginDataCorrect(String userName, String password) {

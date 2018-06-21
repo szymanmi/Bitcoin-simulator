@@ -10,12 +10,12 @@ public class User {
 	private BigDecimal bitcoins;
 
 	public User(int userId, String userName, double dollars, double bitcoins) {
-		System.out.println("user konstruktor");
+		//System.out.println("user konstruktor");
 		this.userId = userId;
 		this.userName = userName;
 		this.PLN = new BigDecimal(dollars,MathContext.DECIMAL64).stripTrailingZeros();
 		this.bitcoins = new BigDecimal(bitcoins,MathContext.DECIMAL64).stripTrailingZeros();
-		System.out.println("user koniec konstruktora");
+		//System.out.println("user koniec konstruktora");
 	}
 
 	public void setDollars(BigDecimal PLN) {

@@ -2,7 +2,7 @@ package model;
 
 import java.sql.*;
 
-public class DataBaseJDBC extends DataBase {
+public class DataBaseJDBC implements DataBase {
     private static String JDBCDriver = "com.mysql.jdbc.Driver";
     private static String DBurl = "jdbc:mysql://atypowa.cba.pl/atypowa_cba_pl?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static String DBUser = "atypowa";

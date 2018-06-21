@@ -63,7 +63,7 @@ class WelcomePanel extends JPanel {
 				int userId = Login.isLoginDataCorrect(login.getText(), password.getText());
 				this.loggedUser = new User(userId, login.getText(), Wallet.getDollarsFromDatabase(userId), Wallet.getBitcoinsFromDatabase(userId));
 				this.userCurrentlyLoggedIn = true;
-				System.out.println(loggedUser.getUserId());
+				//System.out.println(loggedUser.getUserId());
 				//System.out.println(Wallet.getDollarsFromDatabase(userId));
 			} else {
 				System.out.println("wprowadziels bledne dane");

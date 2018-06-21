@@ -84,11 +84,8 @@ class MainPanel extends JPanel {
 		userInfoPanel.add(exitButton, c);
 
 		add(userInfoPanel);
-		//add(addPLNButton);
-		//add(buyButton);
-		//add(sellButton);
 		add(currentBTCPriceLabel);
-		//add(exitButton);
+
 	}
 
 	private void buy() throws IOException {
@@ -120,7 +117,7 @@ class MainPanel extends JPanel {
 			loggedUser.setDollars(first);
 
 			first = loggedUser.getBitcoins();
-			System.out.println(first);
+			//System.out.println(first);
 			first = first.subtract(new BigDecimal(value));
 			loggedUser.setBitcoins(first);
 			Wallet.sell(loggedUser.getUserId(), loggedUser.getBitcoins().doubleValue(),loggedUser.getDollars().doubleValue());
@@ -141,8 +138,8 @@ class MainPanel extends JPanel {
 		userInfoLabel[0].setText("Username: " + loggedUser.getUserName());
 		userInfoLabel[1].setText("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 		userInfoLabel[2].setText("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
-		System.out.println(loggedUser.getDollars());
-		System.out.println(baza.getUserPLN(loggedUser.getUserId()));
+		//System.out.println(loggedUser.getDollars());
+		//System.out.println(baza.getUserPLN(loggedUser.getUserId()));
 		String BTCPrice = String.valueOf(getBitcoinValue());
 		currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
 	}
