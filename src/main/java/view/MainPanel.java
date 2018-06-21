@@ -40,7 +40,7 @@ class MainPanel extends JPanel {
 
 
 		String BTCPrice = String.valueOf(getBitcoinValue());
-		currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
+		currentBTCPriceLabel = new JLabel("Aktualna wartosc BTC: " + BTCPrice);
 		currentBTCPriceLabel.setFont(new Font("Sans Serif", 0, 18));
 
 		ImageIcon buyIcon = new ImageIcon("src/main/resources/buyImage.gif");
@@ -48,10 +48,10 @@ class MainPanel extends JPanel {
 		ImageIcon exitIcon = new ImageIcon("src/main/resources/exitImage.gif");
 		ImageIcon PLNIcon = new ImageIcon("src/main/resources/PLNImage.gif");
 
-		JButton addPLNButton = new JButton("Wpłać PLN", PLNIcon);
+		JButton addPLNButton = new JButton("Wpłac PLN", PLNIcon);
 		JButton buyButton = new JButton("Kup BTC", buyIcon);
 		JButton sellButton = new JButton("Sprzedaj BTC", sellIcon);
-		JButton exitButton = new JButton("Wyjdź", exitIcon);
+		JButton exitButton = new JButton("Wyjdz", exitIcon);
 		exitButton.addActionListener(event -> exit());
 		buyButton.addActionListener(event -> {
 			try {
@@ -91,7 +91,7 @@ class MainPanel extends JPanel {
 	}
 
 	private void buy() throws IOException {
-		String amountToBuy = JOptionPane.showInputDialog(null, "Ile chcesz kupić?");
+		String amountToBuy = JOptionPane.showInputDialog(null, "Ile chcesz kupic?");
 		double value = Double.parseDouble(amountToBuy);
 		BigDecimal temp = new BigDecimal(value);
 		BigDecimal temp2 = loggedUser.getDollars();
@@ -109,7 +109,7 @@ class MainPanel extends JPanel {
 	}
 
 	private void sell() throws IOException {
-		String amountToSell = JOptionPane.showInputDialog(null, "Ile chcesz sprzedać?");
+		String amountToSell = JOptionPane.showInputDialog(null, "Ile chcesz sprzedac?");
 		double value = Double.parseDouble(amountToSell);
 		BigDecimal first = new BigDecimal(value);
 
@@ -128,7 +128,7 @@ class MainPanel extends JPanel {
 	}
 
 	private void addPLN() throws IOException {
-		double valueToAdd =  Double.parseDouble(JOptionPane.showInputDialog(null, "Ile chcesz wpłacić?"));
+		double valueToAdd =  Double.parseDouble(JOptionPane.showInputDialog(null, "Ile chcesz wplacic?"));
 		Wallet.setUpdatedPLN(loggedUser.getUserId(), valueToAdd);
 		refreshUserInfo();
 	}
@@ -143,7 +143,7 @@ class MainPanel extends JPanel {
 		//System.out.println(loggedUser.getDollars());
 		//System.out.println(baza.getUserPLN(loggedUser.getUserId()));
 		String BTCPrice = String.valueOf(getBitcoinValue());
-		currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
+		currentBTCPriceLabel = new JLabel("Aktualna wartosc BTC: " + BTCPrice);
 	}
 
 	private void exit() {

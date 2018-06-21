@@ -23,7 +23,7 @@ class WelcomePanel extends JPanel {
 		ImageIcon exitIcon = new ImageIcon("src/main/resources/exitImage.gif");
 		JButton loginButton = new JButton("Zaloguj", loginIcon);
 		JButton registerButton = new JButton("Zarejestruj", registerIcon);
-		JButton exitButton = new JButton("Wyjdź", exitIcon);
+		JButton exitButton = new JButton("Wyjdz", exitIcon);
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.add(loginButton);
 		buttonsPanel.add(registerButton);
@@ -31,7 +31,7 @@ class WelcomePanel extends JPanel {
 		add(buttonsPanel, BorderLayout.NORTH);
 
 
-		JLabel BTCValueLabel = new JLabel("      Aktualna wartość BTC w PLN: " + String.valueOf(getBitcoinValue()));
+		JLabel BTCValueLabel = new JLabel("      Aktualna wartosc BTC w PLN: " + String.valueOf(getBitcoinValue()));
 		BTCValueLabel.setFont(new Font("Sans Serif", 0, 16));
 		add(BTCValueLabel, BorderLayout.CENTER);
 		exitButton.addActionListener(event -> exit());
