@@ -4,14 +4,18 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class User {
+	private int userId;
 	private String userName;
 	private BigDecimal PLN;
 	private BigDecimal bitcoins;
 
-	public User(String userName, double dollars, double bitcoins) {
+	public User(int userId, String userName, double dollars, double bitcoins) {
+		System.out.println("user konstruktor");
+		this.userId = userId;
 		this.userName = userName;
 		this.PLN = new BigDecimal(dollars,MathContext.DECIMAL64).stripTrailingZeros();
 		this.bitcoins = new BigDecimal(bitcoins,MathContext.DECIMAL64).stripTrailingZeros();
+		System.out.println("user koniec konstruktora");
 	}
 
 	public void setDollars(BigDecimal PLN) {
@@ -20,6 +24,10 @@ public class User {
 
 	public void setBitcoins(BigDecimal bitcoins) {
 		this.bitcoins = bitcoins;
+	}
+
+	public int getUserId() {
+		return userId;
 	}
 
 	public String getUserName() {
@@ -34,17 +42,7 @@ public class User {
 		return bitcoins;
 	}
 
-	public static double getDollarsFromDatabase() {
-		return 50000;
+	public void setPLN(BigDecimal PLN) {
+		this.PLN = PLN;
 	}
-
-	public static double getBitcoinsFromDatabase() {
-		return 0.3;
-	}
-
-
-	/*
-	TODO:
-	metoda która zmieni wartości dollars oraz bitcoins podczas zakupu
-	 */
 }
