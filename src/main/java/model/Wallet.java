@@ -16,4 +16,9 @@ public class Wallet {
 		DataBaseJDBC baza = new DataBaseJDBC();
 		baza.addUserPLN(userId, PLNToAdd);
 	}
+
+	public static void sell(int userId, double BTC, double PLN) {
+		DataBaseJDBC baza = new DataBaseJDBC();
+		baza.userUpdateAccountState(userId, BTC, PLN);
+	}
 }

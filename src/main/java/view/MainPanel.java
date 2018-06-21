@@ -16,7 +16,7 @@ import static model.Bitcoin.getBitcoinValue;
 class MainPanel extends JPanel {
 	private User loggedUser;
 	private JLabel[] userInfoLabel;
-
+	private JLabel currentBTCPriceLabel;
 	MainPanel(User loggedUser) throws IOException {
 		this.loggedUser = loggedUser;
 
@@ -40,7 +40,7 @@ class MainPanel extends JPanel {
 
 
 		String BTCPrice = String.valueOf(getBitcoinValue());
-		JLabel currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
+		currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
 		currentBTCPriceLabel.setFont(new Font("Sans Serif", 0, 18));
 
 		ImageIcon buyIcon = new ImageIcon("src/main/resources/buyImage.gif");
@@ -66,7 +66,13 @@ class MainPanel extends JPanel {
 			}
 		});
 
-		addPLNButton.addActionListener(event -> addPLN());
+		addPLNButton.addActionListener(event -> {
+			try {
+				addPLN();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 
 		c.gridy = 3;
 		userInfoPanel.add(addPLNButton, c);
@@ -117,23 +123,28 @@ class MainPanel extends JPanel {
 			System.out.println(first);
 			first = first.subtract(new BigDecimal(value));
 			loggedUser.setBitcoins(first);
+			Wallet.sell(loggedUser.getUserId(), loggedUser.getBitcoins().doubleValue(),loggedUser.getDollars().doubleValue());
 			refreshUserInfo();
 		}
 	}
 
-	private void addPLN() {
+	private void addPLN() throws IOException {
 		double valueToAdd =  Double.parseDouble(JOptionPane.showInputDialog(null, "Ile chcesz wpłacić?"));
 		Wallet.setUpdatedPLN(loggedUser.getUserId(), valueToAdd);
 		refreshUserInfo();
 	}
 
-	private void refreshUserInfo() {
+	private void refreshUserInfo() throws IOException {
 		DataBaseJDBC baza = new DataBaseJDBC();
 		loggedUser.setDollars(new BigDecimal(baza.getUserPLN(loggedUser.getUserId())));
 		loggedUser.setBitcoins(new BigDecimal(baza.getUserBitcoins(loggedUser.getUserId())));
 		userInfoLabel[0].setText("Username: " + loggedUser.getUserName());
 		userInfoLabel[1].setText("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 		userInfoLabel[2].setText("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
+		System.out.println(loggedUser.getDollars());
+		System.out.println(baza.getUserPLN(loggedUser.getUserId()));
+		String BTCPrice = String.valueOf(getBitcoinValue());
+		currentBTCPriceLabel = new JLabel("Aktualna wartość BTC: " + BTCPrice);
 	}
 
 	private void exit() {

@@ -27,7 +27,7 @@ public class Bitcoin {
 		in.close();
 
 		JSONObject myResponse = new JSONObject(response.toString());
-		System.out.println(myResponse);
+
 		return Double.parseDouble(myResponse.getString("last"));
 	}
 }
