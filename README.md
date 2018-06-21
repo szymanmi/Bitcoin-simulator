@@ -2,6 +2,6 @@
 
 Autors:\
 =>Jan Szewczyk\
-=>Jan Szewczyk\
-=>Jan Szewczyk\
-=>Jan Szewczyk
+=>Michał Szymański\
+=>Cysiek\
+=>Anna Stelmach
