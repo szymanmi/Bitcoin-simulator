@@ -1,6 +1,9 @@
 package view;
 
+import model.Buy;
+import model.DataBaseJDBC;
 import model.User;
+import model.Wallet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +46,7 @@ class MainPanel extends JPanel {
 		ImageIcon buyIcon = new ImageIcon("src/main/resources/buyImage.gif");
 		ImageIcon sellIcon = new ImageIcon("src/main/resources/sellImage.gif");
 		ImageIcon exitIcon = new ImageIcon("src/main/resources/exitImage.gif");
+		JButton addPLNButton = new JButton("Wpłać PLN", buyIcon);
 		JButton buyButton = new JButton("Kup BTC", buyIcon);
 		JButton sellButton = new JButton("Sprzedaj BTC", sellIcon);
 		JButton exitButton = new JButton("Wyjdź", exitIcon);
@@ -62,12 +66,23 @@ class MainPanel extends JPanel {
 			}
 		});
 
+		addPLNButton.addActionListener(event -> addPLN());
+
+		c.gridy = 3;
+		userInfoPanel.add(addPLNButton, c);
+		c.gridy = 4;
+		userInfoPanel.add(buyButton, c);
+		c.gridy = 5;
+		userInfoPanel.add(sellButton, c);
+		c.gridy = 6;
+		userInfoPanel.add(exitButton, c);
 
 		add(userInfoPanel);
-		add(buyButton);
-		add(sellButton);
+		//add(addPLNButton);
+		//add(buyButton);
+		//add(sellButton);
 		add(currentBTCPriceLabel);
-		add(exitButton);
+		//add(exitButton);
 	}
 
 	private void buy() throws IOException {
@@ -82,6 +97,7 @@ class MainPanel extends JPanel {
 			temp = loggedUser.getBitcoins();
 			temp = temp.add(new BigDecimal(value));
 			loggedUser.setBitcoins(temp);
+			Buy.buy(loggedUser.getUserId(), loggedUser.getBitcoins().doubleValue(), loggedUser.getDollars().doubleValue());
 			refreshUserInfo();
 		}
 
@@ -105,7 +121,16 @@ class MainPanel extends JPanel {
 		}
 	}
 
+	private void addPLN() {
+		double valueToAdd =  Double.parseDouble(JOptionPane.showInputDialog(null, "Ile chcesz wpłacić?"));
+		Wallet.setUpdatedPLN(loggedUser.getUserId(), valueToAdd);
+		refreshUserInfo();
+	}
+
 	private void refreshUserInfo() {
+		DataBaseJDBC baza = new DataBaseJDBC();
+		loggedUser.setDollars(new BigDecimal(baza.getUserPLN(loggedUser.getUserId())));
+		loggedUser.setBitcoins(new BigDecimal(baza.getUserBitcoins(loggedUser.getUserId())));
 		userInfoLabel[0].setText("Username: " + loggedUser.getUserName());
 		userInfoLabel[1].setText("Dolary: " + loggedUser.getDollars().setScale(2, RoundingMode.DOWN).stripTrailingZeros().toPlainString());
 		userInfoLabel[2].setText("Bitcoiny: " + loggedUser.getBitcoins().setScale(8, RoundingMode.DOWN).stripTrailingZeros().toPlainString());

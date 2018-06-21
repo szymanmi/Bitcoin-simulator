@@ -3,6 +3,7 @@ package view;
 import model.Login;
 import model.Register;
 import model.User;
+import model.Wallet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,8 +60,11 @@ class WelcomePanel extends JPanel {
 		int result = JOptionPane.showConfirmDialog(null, inputs, "Zaloguj się", JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			if (Login.isLoginDataCorrect(login.getText(), password.getText()) > 0) {
+				int userId = Login.isLoginDataCorrect(login.getText(), password.getText());
+				this.loggedUser = new User(userId, login.getText(), Wallet.getDollarsFromDatabase(userId), Wallet.getBitcoinsFromDatabase(userId));
 				this.userCurrentlyLoggedIn = true;
-				this.loggedUser = new User(login.getText(), User.getDollarsFromDatabase(), User.getBitcoinsFromDatabase());
+				//System.out.println(loggedUser.getDollars());
+				//System.out.println(Wallet.getDollarsFromDatabase(userId));
 			} else {
 				System.out.println("wprowadziels bledne dane");
 			}
@@ -78,7 +82,7 @@ class WelcomePanel extends JPanel {
 				new JLabel("Login: "), login,
 				new JLabel("Hasło: "), password
 		};
-		int result = JOptionPane.showConfirmDialog(null, inputs, "Zaloguj się", JOptionPane.PLAIN_MESSAGE);
+		int result = JOptionPane.showConfirmDialog(null, inputs, "Zarejestruj się", JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			if(Register.registerUser(login.getText(), password.getText()) > 0)
 				System.out.println("rejestracja udana");
