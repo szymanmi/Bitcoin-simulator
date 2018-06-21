@@ -152,7 +152,7 @@ public class DataBaseJDBC extends DataBase {
             ResultSet result = this.stmnt.executeQuery();
 
             while (result.next()) {
-                bitcoins = result.getInt("bitcoins");
+                bitcoins = result.getDouble("bitcoins");
                 amount++;
             }
 
@@ -183,7 +183,7 @@ public class DataBaseJDBC extends DataBase {
             ResultSet result = this.stmnt.executeQuery();
 
             while (result.next()) {
-                PLN = result.getInt("PLN");
+                PLN = result.getDouble("PLN");
                 amount++;
             }
 
@@ -213,8 +213,8 @@ public class DataBaseJDBC extends DataBase {
             ResultSet result = this.stmnt.executeQuery();
 
             while (result.next()) {
-                PLN = result.getInt("PLN");
-                bitcoins = result.getInt("bitcoins");
+                PLN = result.getDouble("PLN");
+                bitcoins = result.getDouble("bitcoins");
                 amount++;
             }
 
