@@ -1,2 +1,2 @@
-# Bitcoin symulator 2077
+# Bitcoin symulator
 JavaProjekt
